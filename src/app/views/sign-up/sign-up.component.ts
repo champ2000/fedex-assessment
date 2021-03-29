@@ -17,7 +17,8 @@ export class SignUpComponent implements OnInit {
   // TODO move to configuration
   public passwordMinLength = 8;
   public emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
-  
+  public matcher: CustomErrorStateMatcher;
+
   spinnerButtonOptions: MatProgressButtonOptions = {
     active: false,
     text: 'Submit',
@@ -30,7 +31,7 @@ export class SignUpComponent implements OnInit {
     disabled: false,
     mode: 'indeterminate'
   }
-  
+ 
   constructor(private fb: FormBuilder, private signUpService: SignUpService) { }
 
   ngOnInit() {
@@ -53,10 +54,12 @@ export class SignUpComponent implements OnInit {
         Validators.required
       ]]
     }, { validators:  [nameInPasswordValidator, passwordMatchValidator] });
+
+    this.matcher = new CustomErrorStateMatcher();
   }
 
   submitAccount():void {
-    
+
     if (!this.signupForm.valid){
       return null;
     }
@@ -77,7 +80,8 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  resetForm(): void {
+  clearForm():void {
+    this.signupForm.clearValidators()
     this.signupForm.reset();
   }
 

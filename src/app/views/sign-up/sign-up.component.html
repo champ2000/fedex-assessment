@@ -1,12 +1,12 @@
 <div class="container">
-        <mat-card class="signup-card">
-            <mat-card-header>
-                <mat-card-title>
-                Create your account
-                </mat-card-title>
-            </mat-card-header>
-            <img mat-card-image src="assets/Fedex-logo.png" alt="Fedex Logo">
-            <mat-card-content>
+    <mat-card class="signup-card">
+        <mat-card-header>
+            <mat-card-title>
+            Create your account
+            </mat-card-title>
+        </mat-card-header>
+        <img mat-card-image src="assets/Fedex-logo.png" alt="Fedex Logo">
+        <mat-card-content>
                 <form [formGroup]="signupForm">
                     <div class="form-content">       
                         
@@ -37,9 +37,8 @@
                         </mat-form-field>
 
                         <mat-form-field>
-                            <input matInput formControlName="password" placeholder="Password" type="password" required>
+                            <input matInput formControlName="password" placeholder="Password" type="password" [errorStateMatcher]="matcher" required>
                             <mat-hint class="ac-form-field-description">More than {{ passwordMinLength }} characters.</mat-hint>
-                            {{ password.hasError | json }} 
                             <mat-error *ngIf="password.hasError('required')">
                                 Password is mandatory.
                             </mat-error>
@@ -61,14 +60,15 @@
                         </mat-form-field>
                 
                     </div>
-                    <mat-card-actions>
-                        <mat-spinner-button 
-                            [options]="spinnerButtonOptions"
-                            (btnClick)="submitAccount()">
-                        </mat-spinner-button>
-                        <button mat-raised-button [disabled]="loading" (click)="resetForm">Reset</button>
-                    </mat-card-actions>
                 </form>
-            </mat-card-content>
-        </mat-card>
+                <mat-card-actions>
+                    <mat-spinner-button 
+                        [options]="spinnerButtonOptions"
+                        (btnClick)="submitAccount()">
+                    </mat-spinner-button>
+                    <button mat-raised-button [disabled]="loading" (click)="clearForm()">Reset</button>
+                </mat-card-actions>
+   
+        </mat-card-content>
+    </mat-card>
 </div>

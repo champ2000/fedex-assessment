@@ -33,8 +33,8 @@ export function passwordMatchValidator(control: FormGroup): ValidationErrors | n
 
 
 export function nameInPasswordValidator(control: FormGroup): ValidationErrors | null {
-  const fName = control.get('lastName').value;
-  const lName = control.get('firstName').value;
+  const fName = control.get('firstName').value;
+  const lName = control.get('lastName').value;
   const password = control.get('password');
 
   if (!password || !password.value || !fName || !lName) {
@@ -48,7 +48,7 @@ export function nameInPasswordValidator(control: FormGroup): ValidationErrors | 
     if (fName) {
       fNameInPassword = password.value.toLowerCase().includes(fName.toLowerCase());
     }
-    if (lName.value) {
+    if (lName) {
       lNameInPassword = password.value.toLowerCase().includes(lName.toLowerCase());
     }
   }
